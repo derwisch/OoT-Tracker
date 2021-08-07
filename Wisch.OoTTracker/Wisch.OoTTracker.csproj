@@ -65,6 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SaveData.Binary.cs" />
+    <Compile Include="SaveData.CustomIni.cs" />
+    <Compile Include="SaveData.Ini.cs" />
     <Compile Include="UI\GuiApi.cs" />
     <Compile Include="Bookkeeping.cs" />
     <Compile Include="CustomMainForm.cs">
