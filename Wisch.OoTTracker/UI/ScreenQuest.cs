@@ -52,6 +52,9 @@ namespace Wisch.OoTTracker.UI
         private ItemSlot slotSongWarpLight;
 
         private readonly CustomMainForm trackerForm;
+        private readonly NumberRenderer numberRenderer;
+
+        private uint skulltulaCount = 0;
 
         protected override void DiscrepancyFound(object sender, Bookkeeping.DiscrepancyEventArgs args)
         {
@@ -60,6 +63,7 @@ namespace Wisch.OoTTracker.UI
                 if (pair.Key == Bookkeeping.KEY_SKULLTULAS)
                 {
                     labelSkulltula.Text = pair.Value.ToString();
+                    skulltulaCount = (uint)pair.Value;
                 }
                 else if (pair.Key == Bookkeeping.KEY_DEATH_COUNTER)
                 {
@@ -116,17 +120,14 @@ namespace Wisch.OoTTracker.UI
             float skulltulaX = paddingX + ((74f / 800) * actualWidth);
             float skulltulaY = clientHeight - paddingY - ((47f / 600) * actualHeight);
 
-            float textX = paddingX + ((104f / 800) * actualWidth);
-            float textY = clientHeight - paddingY - ((50f / 600) * actualHeight);
+            float textX = paddingX + ((90f / 800) * actualWidth);
+            float textY = clientHeight - paddingY - ((47f / 600) * actualHeight);
 
             GuiApi.Instance.DrawNew("native", true);
 
             Image image = Resources.Instance["skultula"];
             GuiApi.Instance.DrawImage(image, (int)skulltulaX, (int)skulltulaY, (int)fontSize, (int)fontSize);
-            GuiApi.Instance.DrawString((int)textX, (int)textY, labelSkulltula.Text,
-                    forecolor: skulltulaColor,
-                    fontsize: (int)fontSize,
-                    fontfamily: "Arial");
+            numberRenderer.Draw((int)textX, (int)textY, (int)skulltulaCount, fontSize * 1.3f);
             GuiApi.Instance.DrawFinish();
         }
 
@@ -168,6 +169,7 @@ namespace Wisch.OoTTracker.UI
         public ScreenQuest(CustomMainForm trackerForm, Bookkeeping bookkeeping, int offsetX, int offsetY) : base(bookkeeping, offsetX, offsetY)
         {
             this.trackerForm = trackerForm;
+            this.numberRenderer = new NumberRenderer();
             SaveData.Loaded += SaveData_Loaded;
         }
 

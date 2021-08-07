@@ -92,6 +92,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Resources.cs" />
+    <Compile Include="UI\NumberRenderer.cs" />
     <Compile Include="UI\ScreenBase.cs" />
     <Compile Include="UI\ScreenEquipment.cs" />
     <Compile Include="UI\ScreenItems.cs" />
@@ -520,6 +521,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\screen_quest_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\number-sheet.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
