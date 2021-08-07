@@ -181,10 +181,10 @@ namespace Wisch.OoTTracker.UI
 
         protected override void CreateControls()
         {
-            labelIceTrapReceived = BuildLabel(190, 24, 60, 48, "0", Color.CornflowerBlue, fontSize: 24, bold: true, alignment: ContentAlignment.MiddleCenter);
+            labelIceTrapReceived = BuildLabel(190, 24, 60, 48, "labelIceTrapReceived", "0", Color.CornflowerBlue, fontSize: 24, bold: true, alignment: ContentAlignment.MiddleCenter);
             labelIceTrapReceived.TextChanged += (sender, e) => SaveData.SetData(SaveData.ICE_TRAPS_RECEIVED, labelIceTrapReceived.Text);
 
-            labelIceTrapGiven = BuildLabel(190, 80, 60, 48, "0", Color.CornflowerBlue, fontSize: 24, bold: true, alignment: ContentAlignment.MiddleCenter);
+            labelIceTrapGiven = BuildLabel(190, 80, 60, 48, "labelIceTrapGiven", "0", Color.CornflowerBlue, fontSize: 24, bold: true, alignment: ContentAlignment.MiddleCenter);
             labelIceTrapGiven.TextChanged += (sender, e) => SaveData.SetData(SaveData.ICE_TRAPS_GIVEN, labelIceTrapGiven.Text);
 
             toggleIceTrapsReceived = BuildCounterToggle(134, 24, 48, 48, "ice_trap_received", labelIceTrapReceived);
@@ -193,7 +193,7 @@ namespace Wisch.OoTTracker.UI
             slotSkulltula = BuildItemSlot(26, 101, 32, 32, "Skulltula", "skultula");
             slotSkulltula.IsFound = true;
             slotSkulltula.CanToggle = false;
-            labelSkulltula = BuildLabel(65, 107, 44, 20, "0", Color.FromArgb(255, 204, 0),
+            labelSkulltula = BuildLabel(65, 107, 44, 20, "labelSkulltula", "0", Color.FromArgb(255, 204, 0),
                                         fontSize: 12F,
                                         bold: true,
                                         alignment: ContentAlignment.MiddleCenter);
@@ -212,12 +212,12 @@ namespace Wisch.OoTTracker.UI
             slotGemGoron = BuildItemSlot(342, 260, 32, 32, "Goron\'s Ruby", "gem_goron");
             slotGemZora = BuildItemSlot(392, 260, 32, 32, "Zora\'s Sapphire", "gem_zora");
 
-            slotSongZelda = BuildItemSlot(27, 160, 22, 32, "Zelda\'s Lullaby", "note_regular");
-            slotSongEpona = BuildItemSlot(61, 160, 22, 32, "Epona\'s Song", "note_regular");
-            slotSongSaria = BuildItemSlot(98, 160, 22, 32, "Saria\'s Song", "note_regular");
-            slotSongSun = BuildItemSlot(134, 160, 22, 32, "Sun\'s Song", "note_regular");
-            slotSongTime = BuildItemSlot(171, 160, 22, 32, "Song of Time", "note_regular");
-            slotSongStorms = BuildItemSlot(207, 160, 22, 32, "Song of Storms", "note_regular");
+            slotSongZelda = BuildItemSlotNamed(27, 160, "slot_song_zelda", 22, 32, "Zelda\'s Lullaby", "note_regular");
+            slotSongEpona = BuildItemSlotNamed(61, 160, "slot_song_epona", 22, 32, "Epona\'s Song", "note_regular");
+            slotSongSaria = BuildItemSlotNamed(98, 160, "slot_song_saria", 22, 32, "Saria\'s Song", "note_regular");
+            slotSongSun = BuildItemSlotNamed(134, 160, "slot_song_sun", 22, 32, "Sun\'s Song", "note_regular");
+            slotSongTime = BuildItemSlotNamed(171, 160, "slot_song_time", 22, 32, "Song of Time", "note_regular");
+            slotSongStorms = BuildItemSlotNamed(207, 160, "slot_song_storms", 22, 32, "Song of Storms", "note_regular");
 
             slotSongWarpForest = BuildItemSlot(27, 204, 22, 32, "Minuet of Forest", "note_warp_forest");
             slotSongWarpFire = BuildItemSlot(61, 204, 22, 32, "Bolero of Fire", "note_warp_mountain");
@@ -226,7 +226,7 @@ namespace Wisch.OoTTracker.UI
             slotSongWarpShadow = BuildItemSlot(171, 204, 22, 32, "Nocturne of Shadow", "note_warp_graveyard");
             slotSongWarpLight = BuildItemSlot(207, 204, 22, 32, "Prelude of Light", "note_warp_citadel");
 
-            labelDeathCounter = BuildLabel(104, 248, 140, 54, "0", Color.FromArgb(255, 204, 0),
+            labelDeathCounter = BuildLabel(104, 248, 140, 54, "labelDeathCounter", "0", Color.FromArgb(255, 204, 0),
                                         fontSize: 24F,
                                         bold: true,
                                         alignment: ContentAlignment.MiddleCenter);

@@ -349,10 +349,10 @@ namespace Wisch.OoTTracker.UI
 
             slotBeans = BuildItemSlot(182, 175, "Magic Beans", "beans");
 
-            slotBottle1 = BuildItemSlot(55, 239, bottleAlternatives);
-            slotBottle2 = BuildItemSlot(118, 239, bottleAlternatives);
-            slotBottle3 = BuildItemSlot(182, 239, bottleAlternatives);
-            slotBottle4 = BuildItemSlot(246, 240, bottleAlternatives);
+            slotBottle1 = BuildItemSlotNamed(55, 239, "slot_bottle_1", bottleAlternatives);
+            slotBottle2 = BuildItemSlotNamed(118, 239, "slot_bottle_2", bottleAlternatives);
+            slotBottle3 = BuildItemSlotNamed(182, 239, "slot_bottle_3", bottleAlternatives);
+            slotBottle4 = BuildItemSlotNamed(246, 240, "slot_bottle_4", bottleAlternatives);
 
             slotArrowFire = BuildItemSlot(310, 48, "Fire Arrows", "arrow_fire");
             slotArrowIce = BuildItemSlot(310, 112, "Ice Arrows", "arrow_ice");
@@ -362,7 +362,7 @@ namespace Wisch.OoTTracker.UI
             slotSpellFarore = BuildItemSlot(374, 112, "Faore\'s Wind", "farore_wind");
             slotSpellNayru = BuildItemSlot(374, 176, "Nayru\'s Love", "nayru_love");
 
-            slotTradeChild = BuildItemSlot(374, 240,
+            slotTradeChild = BuildItemSlotNamed(374, 240, "slot_trade_child",
                 "Weird Egg", "egg",
                 "Pocket Cucco", "cuckoo",
                 "Zelda\'s Letter", "zelda_letter",
@@ -375,7 +375,7 @@ namespace Wisch.OoTTracker.UI
                 "Gerudo Mask", "mask_gerudo",
                 "Mask of Truth", "mask_truth");
 
-            slotTradeAdult = BuildItemSlot(310, 240,
+            slotTradeAdult = BuildItemSlotNamed(310, 240, "slot_trade_adult",
                 "Pocket Egg", "egg",
                 "Pocket Cucco", "cuckoo",
                 "Cojiro", "cuckoo_blue",

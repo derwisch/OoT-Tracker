@@ -40,6 +40,7 @@ namespace Wisch.OoTTracker.UI
         /// <param name="y">Y coordinate of the control on this screen. The screen automatically offsets the control.</param>
         protected Label BuildLabel(int x, int y,
                                    int width, int height,
+                                   string name,
                                    string initialText,
                                    Color color,
                                    string fontFamily = "Microsoft Sans Serif",
@@ -49,6 +50,7 @@ namespace Wisch.OoTTracker.UI
         {
             var result = new Label()
             {
+                Name = name,
                 Location = new Point(offsetX + x, offsetY + y),
                 Size = new Size(width, height),
                 Font = new Font(fontFamily, fontSize, bold ? FontStyle.Bold : FontStyle.Regular),
@@ -68,13 +70,45 @@ namespace Wisch.OoTTracker.UI
         /// </summary>
         /// <param name="x">X coordinate of the control on this screen. The screen automatically offsets the control.</param>
         /// <param name="y">Y coordinate of the control on this screen. The screen automatically offsets the control.</param>
+        /// <param name="name">Name of the control</param>
+        /// <param name="alternativeTemplates">
+        /// An array of string pairs consisting of name followed by the image key for the given alternative. <br />
+        /// Must contain at least one pair of <c>"name", "image_key"</c>
+        /// </param>
+        protected ItemSlot BuildItemSlotNamed(int x, int y, string name, params string[] alternativeTemplates)
+        {
+            return BuildItemSlot(x, y, name, 48, 48, alternativeTemplates);
+        }
+
+        /// <summary>
+        /// Builds an item slot and adds it to the control list.<br />
+        /// <c>width</c> and <c>height</c> default to 48.
+        /// </summary>
+        /// <param name="x">X coordinate of the control on this screen. The screen automatically offsets the control.</param>
+        /// <param name="y">Y coordinate of the control on this screen. The screen automatically offsets the control.</param>
+        /// <param name="name">Name of the control</param>
+        /// <param name="alternativeTemplates">
+        /// An array of string pairs consisting of name followed by the image key for the given alternative. <br />
+        /// Must contain at least one pair of <c>"name", "image_key"</c>
+        /// </param>
+        protected ItemSlot BuildItemSlotNamed(int x, int y, string name, int width, int height, params string[] alternativeTemplates)
+        {
+            return BuildItemSlot(x, y, name, width, height, alternativeTemplates);
+        }
+
+        /// <summary>
+        /// Builds an item slot and adds it to the control list.<br />
+        /// <c>width</c> and <c>height</c> default to 48.
+        /// </summary>
+        /// <param name="x">X coordinate of the control on this screen. The screen automatically offsets the control.</param>
+        /// <param name="y">Y coordinate of the control on this screen. The screen automatically offsets the control.</param>
         /// <param name="alternativeTemplates">
         /// An array of string pairs consisting of name followed by the image key for the given alternative. <br />
         /// Must contain at least one pair of <c>"name", "image_key"</c>
         /// </param>
         protected ItemSlot BuildItemSlot(int x, int y, params string[] alternativeTemplates)
         {
-            return BuildItemSlot(x, y, 48, 48, alternativeTemplates);
+            return BuildItemSlot(x, y, "slot_" + alternativeTemplates[1], 48, 48, alternativeTemplates);
         }
 
         /// <summary>
@@ -88,6 +122,20 @@ namespace Wisch.OoTTracker.UI
         /// </param>
         protected ItemSlot BuildItemSlot(int x, int y, int width, int height, params string[] alternativeTemplates)
         {
+            return BuildItemSlot(x, y, "slot_" + alternativeTemplates[1], width, height, alternativeTemplates);
+        }
+
+        /// <summary>
+        /// Builds an item slot and adds it to the control list.
+        /// </summary>
+        /// <param name="x">X coordinate of the control on this screen. The screen automatically offsets the control.</param>
+        /// <param name="y">Y coordinate of the control on this screen. The screen automatically offsets the control.</param>
+        /// <param name="alternativeTemplates">
+        /// An array of string pairs consisting of name followed by the image key for the given alternative. <br />
+        /// Must contain at least one pair of <c>"name", "image_key"</c>
+        /// </param>
+        protected ItemSlot BuildItemSlot(int x, int y, string name, int width, int height, params string[] alternativeTemplates)
+        {
             ItemSlot.Alternative[] alternatives = new ItemSlot.Alternative[alternativeTemplates.Length / 2];
 
             for (int i = 0; i < alternatives.Length; ++i)
@@ -97,6 +145,7 @@ namespace Wisch.OoTTracker.UI
 
             ItemSlot slot = new ItemSlot()
             {
+                Name = name,
                 Icon = alternatives[0].Icon,
                 Location = new Point(offsetX + x, offsetY + y),
                 Size = new Size(width, height),
@@ -108,16 +157,14 @@ namespace Wisch.OoTTracker.UI
 
             SaveData.Loaded += (sender, e) =>
             {
-                string hints = SaveData.GetData<string>($"{SaveData.ITEM_SLOT_PREFIX}{alternatives[0].Name}");
-                slot.Hints = hints.Replace("{LINEBREAK}", Environment.NewLine);
+                slot.Hints = SaveData.GetData<string>($"{SaveData.ITEM_SLOT_PREFIX}{alternatives[0].Name}");
             };
 
             SaveData.Saving += (sender, e) =>
             {
                 if (!String.IsNullOrWhiteSpace(slot.Hints))
                 {
-                    string hints = slot.Hints.Replace(Environment.NewLine, "{LINEBREAK}");
-                    SaveData.SetData($"{SaveData.ITEM_SLOT_PREFIX}{alternatives[0].Name}", hints);
+                    SaveData.SetData($"{SaveData.ITEM_SLOT_PREFIX}{alternatives[0].Name}", slot.Hints);
                 }
             };
 
@@ -134,6 +181,7 @@ namespace Wisch.OoTTracker.UI
         {
             CounterToggle toggle = new CounterToggle(label)
             {
+                Name = "toggle_" + imageKey,
                 Icon = Resources.Instance[imageKey],
                 Location = new Point(offsetX + x, offsetY + y),
                 Size = new Size(width, height)
