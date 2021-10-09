@@ -20,6 +20,11 @@ namespace Wisch.OoTTracker
         public event Action<object, DiscrepancyEventArgs> DiscrepancyFound;
 
         /// <summary>
+        /// Event that will be fired when a new rom is loaded.
+        /// </summary>
+        public event Action<object, EventArgs> NewRomLoaded;
+
+        /// <summary>
         /// The values are stored in little endian byte order.
         /// </summary>
         private const bool IS_BIG_ENDIAN = false;
@@ -28,6 +33,8 @@ namespace Wisch.OoTTracker
         {
             this.trackerForm = trackerForm;
         }
+
+        private uint? oldBootData = 0x00;
 
         public void Update()
         {
@@ -63,6 +70,12 @@ namespace Wisch.OoTTracker
             lastSkultullaState = updateIfNessecary<uint>(newSkultullaState, lastSkultullaState, KEY_SKULLTULAS);
             lastGiantKnifeFlag = updateIfNessecary<uint>(newGiantKnifeFlag, lastGiantKnifeFlag, KEY_GIANT_KNIFE_FLAG);
             lastDeathCounter = updateIfNessecary<uint>(newDeathCounter, lastDeathCounter, KEY_DEATH_COUNTER);
+                uint? newBootData = trackerForm.MemoryDomains.MainMemory.PeekByte(0x016DA0);
+                if (newBootData == 0x00 && oldBootData != 0x00)
+                {
+                    NewRomLoaded?.Invoke(this, EventArgs.Empty);
+                }
+                oldBootData = newBootData;
 
             if (isDirty)
             {

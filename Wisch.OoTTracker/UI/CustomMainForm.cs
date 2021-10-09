@@ -28,6 +28,7 @@ namespace BizHawk.Client.EmuHawk
             ResumeLayout();
             Invalidate();
 
+            SaveData.SetBookkeeping(bookkeeping);
             SaveData.Load();
         }
 

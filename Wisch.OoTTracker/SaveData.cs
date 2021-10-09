@@ -18,9 +18,13 @@ namespace Wisch.OoTTracker
             void Load();
         }
 
+        private static Bookkeeping bookkeeping;
+
         private static readonly ISaveDataProvider saveDataProvider;
         public static event Action<object, EventArgs> Loaded;
         public static event Action<object, EventArgs> Saving;
+
+        private static string romName;
 
         static SaveData()
         {
@@ -34,6 +38,28 @@ namespace Wisch.OoTTracker
         public const string ICE_TRAPS_GIVEN = "ice_traps_given";
         public const string ITEM_SLOT_PREFIX = "item_slot_";
 
+        public static void SetBookkeeping(Bookkeeping bookkeeping)
+        {
+            if (SaveData.bookkeeping != null)
+            {
+                throw new InvalidOperationException("Bookkeeping was already set in SaveData");
+            }
+
+            SaveData.bookkeeping = bookkeeping;
+            romName = Global.Game.Name;
+            bookkeeping.NewRomLoaded += NewRomLoaded;
+        }
+
+        private static void NewRomLoaded(object sender, EventArgs e)
+        {
+            if (romName != null)
+            {
+                Save();
+            }
+            romName = Global.Game.Name;
+            Load();
+        }
+
         private static void SaveHandler(object sender, EventArgs e)
         {
             Save();
@@ -41,7 +67,7 @@ namespace Wisch.OoTTracker
 
         private static string GetRomKey()
         {
-            return Global.Game.Name;
+            return romName;
         }
 
         public static T GetData<T>(string key)
