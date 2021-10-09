@@ -17,6 +17,7 @@ namespace BizHawk.Client.EmuHawk
         public IVideoProvider VideoProvider { get; set; }
 
         private readonly Bookkeeping bookkeeping;
+        private readonly TextEvaluation textEvaluation;
 
         public CustomMainForm()
         {
@@ -25,6 +26,7 @@ namespace BizHawk.Client.EmuHawk
             SuspendLayout();
             InitControls();
             Icon = Resources.Instance.GetIcon("tracker_icon");
+            textEvaluation = new TextEvaluation(bookkeeping, equipmentScreen, questScreen);
             ResumeLayout();
             Invalidate();
 
@@ -225,7 +227,11 @@ namespace BizHawk.Client.EmuHawk
             bookkeeping.Update();
             ResumeLayout();
 
-            questScreen.RedrawSkulltulas();
+            try
+            {
+                questScreen.RedrawSkulltulas();
+            }
+            catch { /* Most likely error with VideoProvider */ }
         }
     }
 }
