@@ -68,6 +68,8 @@
     <Compile Include="SaveData.Binary.cs" />
     <Compile Include="SaveData.CustomIni.cs" />
     <Compile Include="SaveData.Ini.cs" />
+    <Compile Include="TextData.cs" />
+    <Compile Include="TextEvaluation.cs" />
     <Compile Include="UI\CustomMainForm.WinAPI.cs">
       <SubType>Form</SubType>
     </Compile>

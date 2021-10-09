@@ -119,6 +119,12 @@ namespace Wisch.OoTTracker
                     newLines.Add(line);
                 }
 
+                string dirPath = GetDirectoryPath();
+                if (!Directory.Exists(dirPath))
+                {
+                    Directory.CreateDirectory(dirPath);
+                }
+
                 File.WriteAllLines(GetFilePath(), newLines);
             }
 
@@ -137,10 +143,16 @@ namespace Wisch.OoTTracker
                 return false;
             }
 
-            private static string GetFilePath()
+            private static string GetDirectoryPath()
             {
                 var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 var dirPath = Path.Combine(appData, "ootr");
+                return dirPath;
+            }
+
+            private static string GetFilePath()
+            {
+                var dirPath = GetDirectoryPath();
                 var filePath = Path.Combine(dirPath, "tracker-data.ini");
                 return filePath;
             }

@@ -9,6 +9,33 @@ namespace Wisch.OoTTracker.UI
     /// </summary>
     class ScreenEquipment : ScreenBase
     {
+        public string WayOfTheHero 
+        {
+            get => slotNoteWotH.Hints;
+            set
+            {
+                slotNoteWotH.Hints = value;
+            }
+        }
+
+        public string Foolish
+        {
+            get => slotNoteFoolish.Hints;
+            set
+            {
+                slotNoteFoolish.Hints = value;
+            }
+        }
+
+        public string Notes
+        {
+            get => slotNoteMisc.Hints; 
+            set
+            {
+                slotNoteMisc.Hints = value;
+            }
+        }
+
         bool isLongSwordBiggoron = false;
         bool isLongSwordFound = false;
         bool isLongSwordBroken = false;

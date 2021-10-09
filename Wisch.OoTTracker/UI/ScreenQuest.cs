@@ -56,6 +56,23 @@ namespace Wisch.OoTTracker.UI
 
         private uint skulltulaCount = 0;
 
+        public int IceTrapsGiven
+        {
+            get => toggleIceTrapsGiven.Value;
+            set
+            {
+                toggleIceTrapsGiven.Value = value;
+            }
+        }
+        public int IceTrapsReceived
+        {
+            get => toggleIceTrapsReceived.Value; 
+            set
+            {
+                toggleIceTrapsReceived.Value = value;
+            }
+        }
+
         protected override void DiscrepancyFound(object sender, Bookkeeping.DiscrepancyEventArgs args)
         {
             foreach (var pair in args.Payload)
@@ -123,11 +140,13 @@ namespace Wisch.OoTTracker.UI
             float textX = paddingX + ((90f / 800) * actualWidth);
             float textY = clientHeight - paddingY - ((47f / 600) * actualHeight);
 
+            //ToDo: Centralize the overlay drawing in case any other part of the tracker needs to draw ingame.
             GuiApi.Instance.DrawNew("native", true);
 
             Image image = Resources.Instance["skultula"];
             GuiApi.Instance.DrawImage(image, (int)skulltulaX, (int)skulltulaY, (int)fontSize, (int)fontSize);
             numberRenderer.Draw((int)textX, (int)textY, (int)skulltulaCount, fontSize * 1.3f);
+
             GuiApi.Instance.DrawFinish();
         }
 
